@@ -1,6 +1,6 @@
-<p style='text-align: center'>
+<div align=center>
     <img src="./public/logo512.png" alt="logo">
-</p>
+</div>
 
 [![TypeScript](https://img.shields.io/badge/Made%20with-React.js-blue)](https://reactjs.org)
 [![TypeScript](https://img.shields.io/badge/Made%20with-TypeScript-blue)](https://typescriptlang.org)
