@@ -1,7 +1,12 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { logout } from '../store/reducers/user';
 
 const Header = ({ title }) => {
+   const navigate = useNavigate();
+   const dispatch = useDispatch();
+
    const totalPrice = useSelector(({ cart }) => cart.totalPrice);
    const dishCount = useSelector(({ cart }) => cart.dishCount);
 
@@ -13,6 +18,13 @@ const Header = ({ title }) => {
       if (n1 === 1) { return textForms[0]; }
       return textForms[2];
    }
+
+   const goToCart = () => {
+      navigate('/cart');
+   };
+   const onLogout = () => {
+      dispatch(logout());
+   };
 
    return (
       <div style={{
@@ -34,7 +46,13 @@ const Header = ({ title }) => {
                height: '70px',
                backgroundColor: 'orange',
                borderRadius: '50%',
-            }}>Корзина
+            }} onClick={goToCart}>Корзина
+            </button>
+            <button style={{
+               width: '70px',
+               height: '70px',
+               backgroundColor: 'orange',
+            }} onClick={onLogout}>Выход
             </button>
          </div>
       </div>
