@@ -10,7 +10,7 @@ module.exports = (env) => {
    const filename = (ext) => (isDev ? `bundle.${ext}` : `bundle.[hash].${ext}`);
 
    const setupProxy = () => {
-      const [apiUrl, proxyUrl] = env['proxy'] && env['proxy'].split('=>') || [];
+      const [apiUrl, proxyUrl] = (env['proxy'] && env['proxy'].split('=>')) || [];
 
       if (apiUrl && proxyUrl) {
          return {
@@ -20,10 +20,10 @@ module.exports = (env) => {
             },
          };
       }
-   }
+   };
 
    return {
-      entry: './index.tsx',
+      entry: './index.jsx',
       target: 'web',
       mode: 'development',
       context: path.resolve(__dirname, 'src'),
@@ -40,7 +40,7 @@ module.exports = (env) => {
          proxy: setupProxy(),
       },
       resolve: {
-         extensions: ['.ts', '.tsx', '.js', '.jsx', '.scss', '.css'],
+         extensions: ['.js', '.jsx', '.scss', '.css'],
          alias: {
             '@components': path.resolve(__dirname, 'src/components'),
             '@components/*': path.resolve(__dirname, 'src/components/*'),
@@ -53,7 +53,7 @@ module.exports = (env) => {
       },
       plugins: [
          new DotenvPlugin({
-            path: `./.env.${isDev ? 'development' :'production'}`
+            path: `./.env.${isDev ? 'development' : 'production'}`,
          }),
          new CleanWebpackPlugin(),
          new HTMLWebpackPlugin({
@@ -68,8 +68,8 @@ module.exports = (env) => {
       module: {
          rules: [
             {
-               test: /\.tsx?$/,
-               use: 'ts-loader',
+               test: /\.jsx?$/,
+               use: 'babel-loader',
                exclude: /node_modules/,
             },
             {
@@ -82,5 +82,5 @@ module.exports = (env) => {
             },
          ],
       },
-   }
+   };
 };

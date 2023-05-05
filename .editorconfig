@@ -10,12 +10,12 @@ max_line_length = 120
 tab_width = 4
 trim_trailing_whitespace = true
 
-[{*.css, *.scss}]
+[{*.css,*.scss}]
 indent_size = 2
 
-[{*.js, *.jsx, *.ts, *.tsx}]
+[{*.js,*.jsx,*.ts,*.tsx}]
 indent_size = 3
 tab_width = 2
 
-[{*.json, .eslintrc}]
+[{*.json,.eslintrc}]
 indent_size = 3

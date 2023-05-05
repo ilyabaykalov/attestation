@@ -3,7 +3,7 @@
       "browser": true,
       "es2021": true
    },
-   "parser": "@typescript-eslint/parser",
+   "parser": "@babel/eslint-parser",
    "parserOptions": {
       "ecmaFeatures": {
          "jsx": true
@@ -14,22 +14,16 @@
    "extends": [
       "airbnb-base",
       "eslint:recommended",
-      "plugin:@typescript-eslint/eslint-recommended",
-      "plugin:@typescript-eslint/recommended",
       "plugin:import/recommended",
       "plugin:react/recommended"
    ],
    "plugins": [
-      "@typescript-eslint",
       "react",
       "amd",
       "compat"
    ],
    "settings": {
       "import/resolver": {
-         "typescript": {
-            "project": "./tsconfig.json"
-         },
          "alias": {
             "map": [
                ["@components", "./src/components"],
@@ -40,7 +34,7 @@
                ["@utils", "./src/utils"],
                ["@stylesheets", "./src/stylesheets"]
             ],
-            "extensions": [".js", ".jsx", ".ts", ".tsx", ".json", ".png"]
+            "extensions": [".js", ".jsx", ".json", ".png"]
          }
       },
       "react": {
@@ -192,23 +186,23 @@
       "prefer-spread": "off", // Math.max.apply(Math, args) вместо Math.max(...args)
       "space-before-function-paren": "off", // Отсутствующий пробел между function и ()
       "vars-on-top": "off", // Объявление переменной не вверху блока
-
+      "react/prop-types": "off"
       // Правила TypeScript
       // Ошибки
-      "@typescript-eslint/no-unused-vars": "error", // Не использовать до объявления
-      "@typescript-eslint/no-use-before-define": "error", // Использование переменной до её объявления
-      "@typescript-eslint/ban-types": [
-         "error", {
-            "types": {
-               "object": false
-            },
-            "extendDefaults": true
-         }
-      ], // Использование переменной до её объявления
-
-      // Выключенные правила
-      "@typescript-eslint/ban-ts-comment": "off",
-      "@typescript-eslint/no-var-requires": "off", // Ошибка при использовании requires
-      "@typescript-eslint/no-explicit-any": "off" // Запрет использования типа данных any
+//      "@typescript-eslint/no-unused-vars": "error", // Не использовать до объявления
+//      "@typescript-eslint/no-use-before-define": "error", // Использование переменной до её объявления
+//      "@typescript-eslint/ban-types": [
+//         "error", {
+//            "types": {
+//               "object": false
+//            },
+//            "extendDefaults": true
+//         }
+//      ], // Использование переменной до её объявления
+//
+//      // Выключенные правила
+//      "@typescript-eslint/ban-ts-comment": "off",
+//      "@typescript-eslint/no-var-requires": "off", // Ошибка при использовании requires
+//      "@typescript-eslint/no-explicit-any": "off" // Запрет использования типа данных any
    }
 }
