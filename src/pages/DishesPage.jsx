@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { DishCard, Header } from '../components';
 
 import { axios } from '../utils';
-import { useDispatch } from 'react-redux';
 import { getCartList } from '../store/reducers/cart';
 
 const DishesPage = () => {
@@ -21,7 +21,7 @@ const DishesPage = () => {
 
    return (
       <>
-         <Header title={'Наша продукция'}/>
+         <Header title={'Наша продукция'} hasCart/>
          <div style={{
             display: 'flex',
             flexWrap: 'wrap',

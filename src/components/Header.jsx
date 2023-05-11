@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../store/reducers/user';
 
-const Header = ({ title }) => {
+const Header = ({ title, hasBackButton, hasCart }) => {
    const navigate = useNavigate();
    const dispatch = useDispatch();
 
@@ -35,19 +35,23 @@ const Header = ({ title }) => {
          display: 'flex',
          justifyContent: 'space-between',
       }}>
-         <h1>{title}</h1>
+         {hasBackButton && <button>назад</button>}
+         { title && <h1>{title}</h1> }
          <div style={{ display: 'flex' }}>
-            <div>
-               <p>{dishCount} {declOfNum(dishCount, ['товар', 'товара', 'товаров'])}</p>
-               <p>на сумму {totalPrice} ₽</p>
-            </div>
-            <button style={{
-               width: '70px',
-               height: '70px',
-               backgroundColor: 'orange',
-               borderRadius: '50%',
-            }} onClick={goToCart}>Корзина
-            </button>
+            { hasCart && <>
+               <div>
+                  <p>{dishCount} {declOfNum(dishCount, ['товар', 'товара', 'товаров'])}</p>
+                  <p>на сумму {totalPrice} ₽</p>
+               </div>
+               <button style={{
+                  width: '70px',
+                  height: '70px',
+                  backgroundColor: 'orange',
+                  borderRadius: '50%',
+               }} onClick={goToCart}>Корзина
+               </button>
+            </>
+            }
             <button style={{
                width: '70px',
                height: '70px',

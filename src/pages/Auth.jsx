@@ -1,29 +1,60 @@
-import React, { useRef, useState } from 'react';
-import { axios } from '../utils';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../store/reducers/user';
 
-const AuthView = () => {
-   const [email, setEmail] = useState('');
-   const password = useRef();
+import { axios } from '../utils';
+import { Input } from '../components';
+
+const AuthForm = () => {
+   const [userData, setUserData] = useState({
+      email: '', password: '',
+   });
 
    const dispatch = useDispatch();
 
    const onLogin = () => {
-      axios.post('/login', {
-         email,
-         password: password.current.value,
-      })
+      axios.post('/login', userData)
          .then(({ data }) => dispatch(login({
             accessToken: data.accessToken,
             ...data.user,
          })));
    };
 
-   const onInputEmail = ({ target }) => {
-      const { value } = target;
+   const emailValidate = (email, onError) => {
+      if (email) {
+         const regExp = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
 
-      setEmail(value);
+         if (regExp.test(email)) {
+            onError('');
+            return true;
+         }
+         onError('Введен некорректный email');
+         return false;
+      }
+
+      onError('Поле обязательно для заполнения');
+      return false;
+   };
+
+   const passwordValidate = (password, onError) => {
+      if (password) {
+         if (password.length >= 8) {
+            onError('');
+            return true;
+         }
+         onError('Пароль должен содержать 8 или более символов');
+         return false;
+      }
+
+      onError('Поле обязательно для заполнения');
+      return false;
+   };
+
+   const onUpdate = (field, value) => {
+      setUserData((prevState) => ({
+         ...prevState,
+         [field]: value,
+      }));
    };
 
    return (
@@ -33,23 +64,58 @@ const AuthView = () => {
          width: '200px',
       }}>
          <h1>Вход</h1>
-         <input type="email" value={email} onInput={onInputEmail}/>
-         <input type="password" ref={password} defaultValue={'123123123'}/>
+         <Input type={'email'} validate={emailValidate} onUpdate={onUpdate}/>
+         <Input type={'password'} validate={passwordValidate} onUpdate={onUpdate}/>
          <button onClick={onLogin}>Войти</button>
       </div>
    );
 };
 
-const RegView = () => {
-   const email = useRef();
-   const password = useRef();
+const RegForm = () => {
+   const [userData, setUserData] = useState({
+      email: '', password: '',
+   });
 
    const onRegister = () => {
-      axios.post('/register', {
-         email: email.current.value,
-         password: password.current.value,
-      })
+      axios.post('/register', userData)
          .then((result) => console.log(result));
+   };
+
+   const onUpdate = (field, value) => {
+      setUserData((prevState) => ({
+         ...prevState,
+         [field]: value,
+      }));
+   };
+
+   const emailValidate = (email, onError) => {
+      if (email) {
+         const regExp = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
+
+         if (regExp.test(email)) {
+            onError('');
+            return true;
+         }
+         onError('Введен некорректный email');
+         return false;
+      }
+
+      onError('Поле обязательно для заполнения');
+      return false;
+   };
+
+   const passwordValidate = (password, onError) => {
+      if (password) {
+         if (password.length >= 8) {
+            onError('');
+            return true;
+         }
+         onError('Пароль должен содержать 8 или более символов');
+         return false;
+      }
+
+      onError('Поле обязательно для заполнения');
+      return false;
    };
 
    return (
@@ -59,8 +125,8 @@ const RegView = () => {
          width: '200px',
       }}>
          <h1>Регистрация</h1>
-         <input type="email" ref={email} defaultValue={'qwerty@mail.ru'}/>
-         <input type="password" ref={password} defaultValue={'123123123'}/>
+         <Input type={'email'} validate={emailValidate} onUpdate={onUpdate}/>
+         <Input type={'password'} validate={passwordValidate} onUpdate={onUpdate}/>
          <label htmlFor="">галочка
             <input type="checkbox"/>
          </label>
@@ -79,7 +145,7 @@ const Auth = () => {
    return (
       <>
          <button onClick={changeView}>{isAuthView ? 'Зарегистрироваться' : 'Войти'}</button>
-         {isAuthView ? <AuthView/> : <RegView/>}
+         {isAuthView ? <AuthForm/> : <RegForm/>}
       </>
    );
 };

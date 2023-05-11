@@ -3,13 +3,7 @@ import { useDispatch } from 'react-redux';
 import { addToCartList, removeFromCartList } from '../store/reducers/cart';
 
 const DishCard = ({ dish }) => {
-   const {
-      id,
-      title,
-      description,
-      image,
-      price,
-   } = dish;
+   const { id, title, description, image, price } = dish;
 
    const [isAdded, setAddState] = useState(false);
 
