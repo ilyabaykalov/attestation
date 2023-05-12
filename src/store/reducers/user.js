@@ -1,20 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const getFromLocalStorage = () => ({
-   email: localStorage.getItem('email') || '',
-   username: localStorage.getItem('username') || '',
-   accessToken: localStorage.getItem('accessToken') || '',
-});
-
-const saveToLocalStorage = ({ email, username, accessToken }) => {
-   localStorage.setItem('email', email);
-   localStorage.setItem('username', username);
-   localStorage.setItem('accessToken', accessToken);
-};
-
 export const userSlice = createSlice({
    name: 'user',
-   initialState: getFromLocalStorage(),
+   initialState: {},
    reducers: {
       login: (state, { payload }) => {
          const { email, username, accessToken } = payload;
@@ -22,15 +10,11 @@ export const userSlice = createSlice({
          state.email = email;
          state.username = username;
          state.accessToken = accessToken;
-
-         saveToLocalStorage(payload);
       },
       logout: (state) => {
-         saveToLocalStorage({ email: '', username: '', accessToken: '' });
-
-         state.email = localStorage.getItem('email') || '';
-         state.username = localStorage.getItem('username') || '';
-         state.accessToken = localStorage.getItem('accessToken') || '';
+         state.email = '';
+         state.username = '';
+         state.accessToken = '';
       },
    },
 });

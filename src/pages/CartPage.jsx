@@ -1,19 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { getCartList } from '../store/reducers/cart';
+import { useSelector } from 'react-redux';
 
 import { Header, CartItem } from '../components';
 
 const CartPage = () => {
    const dishList = useSelector(({ cart }) => cart.list);
-
-   const dispatch = useDispatch();
-
-   useEffect(() => {
-      dispatch(getCartList())
-         .then((result) => console.log(result));
-   }, []);
 
    return (
       <>

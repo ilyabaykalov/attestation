@@ -13,9 +13,15 @@ const Header = ({ title, hasBackButton, hasCart }) => {
    function declOfNum(n, textForms) {
       n = Math.abs(n) % 100;
       const n1 = n % 10;
-      if (n > 10 && n < 20) { return textForms[2]; }
-      if (n1 > 1 && n1 < 5) { return textForms[1]; }
-      if (n1 === 1) { return textForms[0]; }
+      if (n > 10 && n < 20) {
+         return textForms[2];
+      }
+      if (n1 > 1 && n1 < 5) {
+         return textForms[1];
+      }
+      if (n1 === 1) {
+         return textForms[0];
+      }
       return textForms[2];
    }
 
@@ -24,6 +30,10 @@ const Header = ({ title, hasBackButton, hasCart }) => {
    };
    const onLogout = () => {
       dispatch(logout());
+   };
+
+   const onBack = () => {
+      navigate(-1);
    };
 
    return (
@@ -35,10 +45,10 @@ const Header = ({ title, hasBackButton, hasCart }) => {
          display: 'flex',
          justifyContent: 'space-between',
       }}>
-         {hasBackButton && <button>назад</button>}
-         { title && <h1>{title}</h1> }
+         {hasBackButton && <button onClick={onBack}>назад</button>}
+         {title && <h1>{title}</h1>}
          <div style={{ display: 'flex' }}>
-            { hasCart && <>
+            {hasCart && <>
                <div>
                   <p>{dishCount} {declOfNum(dishCount, ['товар', 'товара', 'товаров'])}</p>
                   <p>на сумму {totalPrice} ₽</p>

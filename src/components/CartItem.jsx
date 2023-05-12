@@ -17,7 +17,7 @@ const CartItem = ({ dish }) => {
 
    return (
       <>
-         <h1>{dish.title}</h1>
+         <h1>{title}</h1>
          <span>{price} ₽</span>
          <button onClick={onRemove}>X</button>
       </>

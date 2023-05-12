@@ -1,31 +1,40 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToCartList, removeFromCartList } from '../store/reducers/cart';
 
 const DishCard = ({ dish }) => {
    const { id, title, description, image, price } = dish;
 
-   const [isAdded, setAddState] = useState(false);
+   const navigate = useNavigate();
+
+   const isAdded = useSelector(({ cart }) => cart.list.find((dish) => dish.id === id));
 
    const dispatch = useDispatch();
 
-   const addToCart = () => {
+   const addToCart = (event) => {
       dispatch(addToCartList(dish));
 
-      setAddState((prevState) => !prevState);
+      event.stopPropagation();
    };
 
-   const removeFromCart = () => {
+   const removeFromCart = (event) => {
       dispatch(removeFromCartList(id));
 
-      setAddState((prevState) => !prevState);
+      event.stopPropagation();
+   };
+
+   const onCardClickHandler = () => {
+      navigate(`/dish/${id}`);
+      // open(id);
    };
 
    return (
       <div style={{
          width: '300px',
          border: '1px solid orange',
-      }}>
+         cursor: 'pointer',
+      }} onClick={onCardClickHandler}>
          <img src={image} alt={title}/>
          <p>{title}</p>
          <p>{description}</p>
